@@ -3,131 +3,95 @@ import Layout from '../layouts/Layout.astro';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 ---
 
 <Layout title="VOIDED OBFUSCATOR">
   <div class="min-h-screen bg-[#0a001f] text-white overflow-hidden relative font-mono">
-    <!-- Background Music: pupsies - misery -->
-    <audio id="misery" loop autoplay volume="0.4">
+    <!-- pupsies - misery (auto play) -->
+    <audio id="misery" loop autoplay volume="0.45">
       <source src="https://files.catbox.moe/0v4p2k.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Deep Purple Glow Background -->
-    <div class="fixed inset-0 bg-[radial-gradient(circle_at_50%_30%,#6b21a830_0%,transparent_70%)] pointer-events-none"></div>
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_center,#6b21a840_0%,transparent_65%)]"></div>
 
-    <nav class="border-b border-purple-900 bg-black/90 backdrop-blur-xl sticky top-0 z-50">
+    <nav class="border-b border-purple-900 bg-black/95 backdrop-blur sticky top-0 z-50">
       <div class="max-w-6xl mx-auto px-8 py-6 flex items-center justify-between">
         <div class="flex items-center gap-5">
-          <div class="w-12 h-12 rounded-3xl bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-4xl shadow-[0_0_30px_#c026d3] animate-pulse">🌀</div>
-          <div>
-            <h1 class="text-5xl font-black tracking-[-2px] bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-400 bg-clip-text text-transparent">VOIDED</h1>
-            <p class="text-purple-400 text-xs tracking-[3px] -mt-1">OBFUSCATOR</p>
-          </div>
+          <div class="w-12 h-12 rounded-3xl bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-4xl shadow-[0_0_35px_#c026d3] animate-pulse">🌀</div>
+          <h1 class="text-5xl font-black tracking-[-3px] bg-gradient-to-r from-purple-300 to-fuchsia-400 bg-clip-text text-transparent">VOIDED</h1>
         </div>
-        <div class="text-purple-300 text-sm flex items-center gap-2">
-          <span class="animate-pulse">●</span> pupsies - misery (loop)
-        </div>
+        <div class="text-purple-400 text-sm">pupsies — misery.</div>
       </div>
     </nav>
 
     <div class="max-w-6xl mx-auto px-8 py-16">
       <div class="text-center mb-16">
-        <h2 class="text-7xl font-black tracking-tighter mb-4 bg-gradient-to-b from-purple-300 to-purple-600 bg-clip-text text-transparent">CODE OBFUSCATOR</h2>
-        <p class="text-purple-400 text-2xl">Turn readable code into chaos</p>
+        <h2 class="text-7xl font-black tracking-tighter mb-3 bg-gradient-to-b from-purple-200 to-purple-600 bg-clip-text text-transparent">OBFUSCATOR</h2>
+        <p class="text-purple-400">Make your code disappear into the void</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <!-- INPUT -->
-        <Card class="bg-[#120824] border-purple-800/80 shadow-2xl shadow-purple-950">
+        <Card class="bg-[#120824] border-purple-800 shadow-2xl">
           <CardHeader>
-            <CardTitle class="text-purple-300 flex items-center gap-4">
-              INPUT CODE
-              <Select id="lang" class="ml-auto w-48">
-                <SelectTrigger class="bg-[#1a0f2e] border-purple-700">
-                  <SelectValue placeholder="Select Language" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="lua">Lua (loadstring ready)</SelectItem>
-                  <SelectItem value="js">JavaScript</SelectItem>
-                  <SelectItem value="ts">TypeScript</SelectItem>
-                  <SelectItem value="py">Python</SelectItem>
-                </SelectContent>
-              </Select>
-            </CardTitle>
+            <CardTitle class="text-purple-300">INPUT CODE</CardTitle>
           </CardHeader>
           <CardContent>
-            <Textarea id="input" rows="16" class="bg-black border-purple-700 focus:border-fuchsia-500 font-mono text-purple-100 placeholder:text-purple-700" placeholder="Paste your script here..."></Textarea>
+            <Textarea id="input" rows="16" class="bg-black border-purple-700 focus:border-fuchsia-500 font-mono text-purple-100 min-h-[420px]" placeholder="Paste Lua / JS / Python / TS here..."></Textarea>
           </CardContent>
         </Card>
 
-        <!-- OUTPUT -->
-        <Card class="bg-[#120824] border-purple-800/80 shadow-2xl shadow-purple-950">
+        <Card class="bg-[#120824] border-purple-800 shadow-2xl">
           <CardHeader>
-            <CardTitle class="text-purple-300 flex justify-between items-center">
-              OBFUSCATED RESULT
-              <Button onclick="obfuscate()" class="bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 px-10 shadow-lg shadow-purple-500/50">OBFUSCATE</Button>
+            <CardTitle class="flex justify-between text-purple-300">
+              OBFUSCATED
+              <Button onclick="obfuscate()" class="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 hover:brightness-110">OBFUSCATE →</Button>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Textarea id="output" rows="16" readonly class="bg-black border-purple-700 font-mono text-fuchsia-300"></Textarea>
-            
+            <Textarea id="output" rows="16" readonly class="bg-black border-purple-700 font-mono text-fuchsia-200 min-h-[420px]"></Textarea>
             <div class="flex gap-4 mt-6">
-              <Button onclick="copyOutput()" class="flex-1 border-purple-600 hover:bg-purple-950">📋 Copy</Button>
-              <Button onclick="clearAll()" variant="outline" class="flex-1">Clear All</Button>
+              <Button onclick="copyOutput()" class="flex-1">📋 Copy</Button>
+              <Button onclick="clearAll()" variant="outline" class="flex-1">Clear</Button>
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
 
-    <!-- Music Control -->
-    <button onclick="toggleMusic()" class="fixed bottom-10 right-10 w-14 h-14 rounded-2xl bg-purple-950 border border-purple-500 hover:border-fuchsia-400 flex items-center justify-center text-3xl shadow-2xl transition-all active:scale-90">♪</button>
+    <button onclick="toggleMusic()" class="fixed bottom-8 right-8 px-6 py-4 bg-purple-950 border border-fuchsia-500 rounded-2xl text-2xl hover:scale-110 transition">♪</button>
   </div>
 
   <script>
+    // Auto-play music
     const music = document.getElementById('misery');
+    music.play().catch(() => {});
 
     function toggleMusic() {
       music.paused ? music.play() : music.pause();
     }
 
-    function simpleObfuscate(code, lang) {
-      let result = code;
-      if (lang === 'lua') {
-        result = `loadstring([[${code.replace(/[\\/']/g, '\\$&')} ]])()`;
-      } else {
-        // Universal simple obfuscation
-        result = btoa(code).split('').map((c,i) => i%3===0 ? '\\x' + c.charCodeAt(0).toString(16) : c).join('');
-      }
-      return result;
+    function simpleObfuscate(code) {
+      return code.split('').map(char => {
+        if (Math.random() > 0.6) return '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0');
+        return char;
+      }).join('');
     }
 
     function obfuscate() {
-      const inputEl = document.getElementById('input');
-      const outputEl = document.getElementById('output');
-      const lang = document.getElementById('lang').value || 'js';
-      
-      if (!inputEl.value.trim()) return alert("Enter some code first");
-      
-      const obfuscated = simpleObfuscate(inputEl.value, lang);
-      outputEl.value = obfuscated;
+      const input = document.getElementById('input').value.trim();
+      if (!input) return alert("Paste code first");
+      document.getElementById('output').value = simpleObfuscate(input);
     }
 
     function copyOutput() {
-      const output = document.getElementById('output').value;
-      if (output) {
-        navigator.clipboard.writeText(output);
-        alert("✅ Copied to clipboard");
-      }
+      const text = document.getElementById('output').value;
+      if (text) navigator.clipboard.writeText(text);
+      alert("✅ Copied!");
     }
 
     function clearAll() {
       document.getElementById('input').value = '';
       document.getElementById('output').value = '';
     }
-
-    // Start music
-    document.addEventListener('click', () => { music.play(); }, { once: true });
   </script>
 </Layout>
