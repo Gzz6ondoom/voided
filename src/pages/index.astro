@@ -2,12 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Textarea } from '../components/ui/textarea';
 ---
 
 <Layout title="VOIDED OBFUSCATOR">
   <div class="min-h-screen bg-[#0a001f] text-white overflow-hidden relative font-mono" onclick="startMusic()">
-    <!-- pupsies - misery -->
     <audio id="misery" loop volume="0.5">
       <source src="https://files.catbox.moe/0v4p2k.mp3" type="audio/mpeg">
     </audio>
@@ -27,28 +25,28 @@ import { Textarea } from '../components/ui/textarea';
     <div class="max-w-6xl mx-auto px-8 py-16">
       <div class="text-center mb-16">
         <h2 class="text-7xl font-black tracking-tighter mb-3 bg-gradient-to-b from-purple-200 to-purple-600 bg-clip-text text-transparent">OBFUSCATOR</h2>
-        <p class="text-purple-400 text-xl">Hide your code in the purple void</p>
+        <p class="text-purple-400 text-xl">Type or paste your code below</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <Card class="bg-[#120824] border-purple-800 shadow-2xl">
-          <CardHeader><CardTitle class="text-purple-300">INPUT</CardTitle></CardHeader>
+          <CardHeader><CardTitle class="text-purple-300">INPUT CODE</CardTitle></CardHeader>
           <CardContent>
-            <Textarea id="input" rows="16" class="bg-black border-purple-700 focus:border-fuchsia-500 font-mono text-purple-100 min-h-[420px]" placeholder="Paste your code..."></Textarea>
+            <textarea id="input" rows="16" class="w-full bg-black border border-purple-700 focus:border-fuchsia-500 rounded-xl p-4 font-mono text-purple-100 min-h-[420px] resize-y" placeholder="Paste Lua / JS / Python here..."></textarea>
           </CardContent>
         </Card>
 
         <Card class="bg-[#120824] border-purple-800 shadow-2xl">
           <CardHeader>
             <CardTitle class="flex justify-between text-purple-300">
-              OUTPUT
-              <Button onclick="obfuscate()" class="bg-gradient-to-r from-purple-600 to-fuchsia-600">OBFUSCATE</Button>
+              OBFUSCATED OUTPUT
+              <Button onclick="obfuscate()" class="bg-gradient-to-r from-purple-600 to-fuchsia-600">OBFUSCATE →</Button>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Textarea id="output" rows="16" readonly class="bg-black border-purple-700 font-mono text-fuchsia-200 min-h-[420px]"></Textarea>
+            <textarea id="output" rows="16" readonly class="w-full bg-black border border-purple-700 rounded-xl p-4 font-mono text-fuchsia-200 min-h-[420px] resize-y"></textarea>
             <div class="flex gap-4 mt-6">
-              <Button onclick="copyOutput()" class="flex-1">Copy</Button>
+              <Button onclick="copyOutput()" class="flex-1">📋 Copy</Button>
               <Button onclick="clearAll()" variant="outline" class="flex-1">Clear</Button>
             </div>
           </CardContent>
@@ -65,21 +63,24 @@ import { Textarea } from '../components/ui/textarea';
 
     function startMusic() {
       if (!musicStarted) {
-        music.play();
+        music.play().catch(() => {});
         musicStarted = true;
       }
     }
 
     function toggleMusic() {
-      if (music.paused) music.play();
-      else music.pause();
+      music.paused ? music.play() : music.pause();
     }
 
     function obfuscate() {
       const input = document.getElementById('input').value.trim();
-      if (!input) return alert("Paste code first");
-      // Simple obfuscation
-      const obfuscated = input.split('').map(c => Math.random() > 0.65 ? '\\u' + c.charCodeAt(0).toString(16).padStart(4,'0') : c).join('');
+      if (!input) return alert("Paste some code first");
+      
+      const obfuscated = input.split('').map(c => {
+        if (Math.random() > 0.6) return '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0');
+        return c;
+      }).join('');
+      
       document.getElementById('output').value = obfuscated;
     }
 
@@ -87,7 +88,7 @@ import { Textarea } from '../components/ui/textarea';
       const text = document.getElementById('output').value;
       if (text) {
         navigator.clipboard.writeText(text);
-        alert("✅ Copied to clipboard");
+        alert("✅ Copied!");
       }
     }
 
@@ -96,7 +97,6 @@ import { Textarea } from '../components/ui/textarea';
       document.getElementById('output').value = '';
     }
 
-    // Click anywhere starts music
     document.addEventListener('click', startMusic, { once: true });
   </script>
 </Layout>
