@@ -2,111 +2,132 @@
 import Layout from '../layouts/Layout.astro';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Badge } from '../components/ui/badge';
-
-const mods = [ /* same as before */ ];
+import { Textarea } from '../components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 ---
 
-<Layout title="Voided Mod Loader">
-  <div class="min-h-screen bg-zinc-950 text-white overflow-hidden relative">
-    <!-- Background Music -->
-    <audio id="bgMusic" loop autoplay volume="0.3">
-      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+<Layout title="VOIDED OBFUSCATOR">
+  <div class="min-h-screen bg-[#0a001f] text-white overflow-hidden relative font-mono">
+    <!-- Background Music: pupsies - misery -->
+    <audio id="misery" loop autoplay volume="0.4">
+      <source src="https://files.catbox.moe/0v4p2k.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Neon Glow Background -->
-    <div class="absolute inset-0 bg-[radial-gradient(at_center,#4f46e520_0%,transparent_70%)]"></div>
+    <!-- Deep Purple Glow Background -->
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_50%_30%,#6b21a830_0%,transparent_70%)] pointer-events-none"></div>
 
-    <!-- Navigation -->
-    <nav class="border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <div class="w-10 h-10 bg-gradient-to-br from-fuchsia-500 via-violet-500 to-cyan-500 rounded-2xl flex items-center justify-center text-3xl font-black shadow-[0_0_20px_#a855f7] animate-pulse">V</div>
-          <h1 class="text-3xl font-bold tracking-tighter">VOIDED</h1>
+    <nav class="border-b border-purple-900 bg-black/90 backdrop-blur-xl sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-8 py-6 flex items-center justify-between">
+        <div class="flex items-center gap-5">
+          <div class="w-12 h-12 rounded-3xl bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-4xl shadow-[0_0_30px_#c026d3] animate-pulse">🌀</div>
+          <div>
+            <h1 class="text-5xl font-black tracking-[-2px] bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-400 bg-clip-text text-transparent">VOIDED</h1>
+            <p class="text-purple-400 text-xs tracking-[3px] -mt-1">OBFUSCATOR</p>
+          </div>
         </div>
-
-        <div class="flex-1 max-w-lg mx-8">
-          <Input 
-            type="text" 
-            placeholder="Search mods..." 
-            class="bg-zinc-900/80 border-zinc-700 focus:border-fuchsia-500 focus:ring-fuchsia-500 placeholder:text-zinc-500"
-          />
-        </div>
-
-        <div class="flex gap-8 text-sm font-medium">
-          <a href="#" class="hover:text-fuchsia-400 transition">Browse</a>
-          <a href="#" class="hover:text-fuchsia-400 transition">Library</a>
-          <a href="#" class="hover:text-fuchsia-400 transition">Community</a>
+        <div class="text-purple-300 text-sm flex items-center gap-2">
+          <span class="animate-pulse">●</span> pupsies - misery (loop)
         </div>
       </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-12 relative">
-      <div class="text-center mb-12">
-        <h2 class="text-5xl font-bold tracking-tight bg-gradient-to-r from-fuchsia-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-          Mod Loader
-        </h2>
-        <p class="text-zinc-400 mt-3 text-lg">Glow up your game</p>
+    <div class="max-w-6xl mx-auto px-8 py-16">
+      <div class="text-center mb-16">
+        <h2 class="text-7xl font-black tracking-tighter mb-4 bg-gradient-to-b from-purple-300 to-purple-600 bg-clip-text text-transparent">CODE OBFUSCATOR</h2>
+        <p class="text-purple-400 text-2xl">Turn readable code into chaos</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {mods.map(mod => (
-          <Card class="group bg-zinc-900/70 border border-zinc-700/80 hover:border-fuchsia-500/50 backdrop-blur overflow-hidden transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-fuchsia-500/20">
-            <div class="relative">
-              <img src={mod.image} class="w-full h-52 object-cover transition-transform group-hover:scale-105" alt={mod.name} />
-              <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/90 to-transparent"></div>
-              <Badge class="absolute top-4 right-4 bg-black/70 backdrop-blur text-xs border border-white/20">{mod.category}</Badge>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <!-- INPUT -->
+        <Card class="bg-[#120824] border-purple-800/80 shadow-2xl shadow-purple-950">
+          <CardHeader>
+            <CardTitle class="text-purple-300 flex items-center gap-4">
+              INPUT CODE
+              <Select id="lang" class="ml-auto w-48">
+                <SelectTrigger class="bg-[#1a0f2e] border-purple-700">
+                  <SelectValue placeholder="Select Language" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="lua">Lua (loadstring ready)</SelectItem>
+                  <SelectItem value="js">JavaScript</SelectItem>
+                  <SelectItem value="ts">TypeScript</SelectItem>
+                  <SelectItem value="py">Python</SelectItem>
+                </SelectContent>
+              </Select>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Textarea id="input" rows="16" class="bg-black border-purple-700 focus:border-fuchsia-500 font-mono text-purple-100 placeholder:text-purple-700" placeholder="Paste your script here..."></Textarea>
+          </CardContent>
+        </Card>
+
+        <!-- OUTPUT -->
+        <Card class="bg-[#120824] border-purple-800/80 shadow-2xl shadow-purple-950">
+          <CardHeader>
+            <CardTitle class="text-purple-300 flex justify-between items-center">
+              OBFUSCATED RESULT
+              <Button onclick="obfuscate()" class="bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 px-10 shadow-lg shadow-purple-500/50">OBFUSCATE</Button>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Textarea id="output" rows="16" readonly class="bg-black border-purple-700 font-mono text-fuchsia-300"></Textarea>
+            
+            <div class="flex gap-4 mt-6">
+              <Button onclick="copyOutput()" class="flex-1 border-purple-600 hover:bg-purple-950">📋 Copy</Button>
+              <Button onclick="clearAll()" variant="outline" class="flex-1">Clear All</Button>
             </div>
-
-            <CardHeader class="pb-3">
-              <CardTitle class="text-lg group-hover:text-fuchsia-400 transition">{mod.name}</CardTitle>
-              <p class="text-xs text-zinc-500">by {mod.author} • {mod.version}</p>
-            </CardHeader>
-
-            <CardContent class="pt-0">
-              <p class="text-sm text-zinc-300 line-clamp-3 mb-6">{mod.desc}</p>
-              
-              <div class="flex items-center justify-between">
-                <span class="text-xs text-emerald-400 font-mono">{mod.downloads.toLocaleString()} DLs</span>
-                <Button 
-                  onclick={`install('${mod.name}')`}
-                  class="bg-gradient-to-r from-fuchsia-600 to-violet-600 hover:brightness-110 shadow-lg shadow-fuchsia-500/30 transition-all active:scale-95"
-                >
-                  Install Mod
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+          </CardContent>
+        </Card>
       </div>
-    </main>
+    </div>
 
-    <!-- Music Toggle -->
-    <button 
-      onclick="toggleMusic()" 
-      class="fixed bottom-6 right-6 bg-zinc-900 border border-zinc-700 hover:border-fuchsia-500 p-3 rounded-full shadow-xl transition"
-    >
-      🎵
-    </button>
+    <!-- Music Control -->
+    <button onclick="toggleMusic()" class="fixed bottom-10 right-10 w-14 h-14 rounded-2xl bg-purple-950 border border-purple-500 hover:border-fuchsia-400 flex items-center justify-center text-3xl shadow-2xl transition-all active:scale-90">♪</button>
   </div>
 
   <script>
-    const music = document.getElementById('bgMusic');
-    
+    const music = document.getElementById('misery');
+
     function toggleMusic() {
-      if (music.paused) {
-        music.play();
+      music.paused ? music.play() : music.pause();
+    }
+
+    function simpleObfuscate(code, lang) {
+      let result = code;
+      if (lang === 'lua') {
+        result = `loadstring([[${code.replace(/[\\/']/g, '\\$&')} ]])()`;
       } else {
-        music.pause();
+        // Universal simple obfuscation
+        result = btoa(code).split('').map((c,i) => i%3===0 ? '\\x' + c.charCodeAt(0).toString(16) : c).join('');
+      }
+      return result;
+    }
+
+    function obfuscate() {
+      const inputEl = document.getElementById('input');
+      const outputEl = document.getElementById('output');
+      const lang = document.getElementById('lang').value || 'js';
+      
+      if (!inputEl.value.trim()) return alert("Enter some code first");
+      
+      const obfuscated = simpleObfuscate(inputEl.value, lang);
+      outputEl.value = obfuscated;
+    }
+
+    function copyOutput() {
+      const output = document.getElementById('output').value;
+      if (output) {
+        navigator.clipboard.writeText(output);
+        alert("✅ Copied to clipboard");
       }
     }
 
-    function install(name) {
-      alert(`Downloading ${name}... Enjoy the glow! 🔥`);
+    function clearAll() {
+      document.getElementById('input').value = '';
+      document.getElementById('output').value = '';
     }
 
-    // Auto play music (some browsers block it until interaction)
-    window.addEventListener('click', () => music.play(), { once: true });
+    // Start music
+    document.addEventListener('click', () => { music.play(); }, { once: true });
   </script>
 </Layout>
