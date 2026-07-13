@@ -6,51 +6,49 @@ import { Textarea } from '../components/ui/textarea';
 ---
 
 <Layout title="VOIDED OBFUSCATOR">
-  <div class="min-h-screen bg-[#0a001f] text-white overflow-hidden relative font-mono">
-    <!-- pupsies - misery (auto play) -->
-    <audio id="misery" loop autoplay volume="0.45">
+  <div class="min-h-screen bg-[#0a001f] text-white overflow-hidden relative font-mono" onclick="startMusic()">
+    <!-- pupsies - misery -->
+    <audio id="misery" loop volume="0.5">
       <source src="https://files.catbox.moe/0v4p2k.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="fixed inset-0 bg-[radial-gradient(circle_at_center,#6b21a840_0%,transparent_65%)]"></div>
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_center,#6b21a850_0%,transparent_60%)]"></div>
 
     <nav class="border-b border-purple-900 bg-black/95 backdrop-blur sticky top-0 z-50">
       <div class="max-w-6xl mx-auto px-8 py-6 flex items-center justify-between">
         <div class="flex items-center gap-5">
-          <div class="w-12 h-12 rounded-3xl bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-4xl shadow-[0_0_35px_#c026d3] animate-pulse">🌀</div>
+          <div class="w-12 h-12 rounded-3xl bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-4xl shadow-[0_0_40px_#c026d3] animate-pulse">🌀</div>
           <h1 class="text-5xl font-black tracking-[-3px] bg-gradient-to-r from-purple-300 to-fuchsia-400 bg-clip-text text-transparent">VOIDED</h1>
         </div>
-        <div class="text-purple-400 text-sm">pupsies — misery.</div>
+        <div class="text-purple-400">misery. on loop</div>
       </div>
     </nav>
 
     <div class="max-w-6xl mx-auto px-8 py-16">
       <div class="text-center mb-16">
         <h2 class="text-7xl font-black tracking-tighter mb-3 bg-gradient-to-b from-purple-200 to-purple-600 bg-clip-text text-transparent">OBFUSCATOR</h2>
-        <p class="text-purple-400">Make your code disappear into the void</p>
+        <p class="text-purple-400 text-xl">Hide your code in the purple void</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <Card class="bg-[#120824] border-purple-800 shadow-2xl">
-          <CardHeader>
-            <CardTitle class="text-purple-300">INPUT CODE</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle class="text-purple-300">INPUT</CardTitle></CardHeader>
           <CardContent>
-            <Textarea id="input" rows="16" class="bg-black border-purple-700 focus:border-fuchsia-500 font-mono text-purple-100 min-h-[420px]" placeholder="Paste Lua / JS / Python / TS here..."></Textarea>
+            <Textarea id="input" rows="16" class="bg-black border-purple-700 focus:border-fuchsia-500 font-mono text-purple-100 min-h-[420px]" placeholder="Paste your code..."></Textarea>
           </CardContent>
         </Card>
 
         <Card class="bg-[#120824] border-purple-800 shadow-2xl">
           <CardHeader>
             <CardTitle class="flex justify-between text-purple-300">
-              OBFUSCATED
-              <Button onclick="obfuscate()" class="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 hover:brightness-110">OBFUSCATE →</Button>
+              OUTPUT
+              <Button onclick="obfuscate()" class="bg-gradient-to-r from-purple-600 to-fuchsia-600">OBFUSCATE</Button>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Textarea id="output" rows="16" readonly class="bg-black border-purple-700 font-mono text-fuchsia-200 min-h-[420px]"></Textarea>
             <div class="flex gap-4 mt-6">
-              <Button onclick="copyOutput()" class="flex-1">📋 Copy</Button>
+              <Button onclick="copyOutput()" class="flex-1">Copy</Button>
               <Button onclick="clearAll()" variant="outline" class="flex-1">Clear</Button>
             </div>
           </CardContent>
@@ -58,40 +56,47 @@ import { Textarea } from '../components/ui/textarea';
       </div>
     </div>
 
-    <button onclick="toggleMusic()" class="fixed bottom-8 right-8 px-6 py-4 bg-purple-950 border border-fuchsia-500 rounded-2xl text-2xl hover:scale-110 transition">♪</button>
+    <button onclick="toggleMusic()" class="fixed bottom-8 right-8 px-6 py-4 bg-purple-950 border border-fuchsia-500 rounded-2xl text-3xl hover:scale-110 transition">♪</button>
   </div>
 
   <script>
-    // Auto-play music
+    let musicStarted = false;
     const music = document.getElementById('misery');
-    music.play().catch(() => {});
 
-    function toggleMusic() {
-      music.paused ? music.play() : music.pause();
+    function startMusic() {
+      if (!musicStarted) {
+        music.play();
+        musicStarted = true;
+      }
     }
 
-    function simpleObfuscate(code) {
-      return code.split('').map(char => {
-        if (Math.random() > 0.6) return '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0');
-        return char;
-      }).join('');
+    function toggleMusic() {
+      if (music.paused) music.play();
+      else music.pause();
     }
 
     function obfuscate() {
       const input = document.getElementById('input').value.trim();
       if (!input) return alert("Paste code first");
-      document.getElementById('output').value = simpleObfuscate(input);
+      // Simple obfuscation
+      const obfuscated = input.split('').map(c => Math.random() > 0.65 ? '\\u' + c.charCodeAt(0).toString(16).padStart(4,'0') : c).join('');
+      document.getElementById('output').value = obfuscated;
     }
 
     function copyOutput() {
       const text = document.getElementById('output').value;
-      if (text) navigator.clipboard.writeText(text);
-      alert("✅ Copied!");
+      if (text) {
+        navigator.clipboard.writeText(text);
+        alert("✅ Copied to clipboard");
+      }
     }
 
     function clearAll() {
       document.getElementById('input').value = '';
       document.getElementById('output').value = '';
     }
+
+    // Click anywhere starts music
+    document.addEventListener('click', startMusic, { once: true });
   </script>
 </Layout>
